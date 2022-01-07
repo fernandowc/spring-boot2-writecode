@@ -2,9 +2,8 @@ package springboot.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import springboot.dto.OrderRequest;
 import springboot.dto.OrderResponse;
 
 import java.util.ArrayList;
@@ -39,5 +38,34 @@ public class OrderController {
         orders.add(response2);
 
         return new ResponseEntity<List<OrderResponse>>(orders, HttpStatus.OK);
+    }
+
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderResponse> findById(@PathVariable String orderId) {
+
+        OrderResponse response = new OrderResponse();
+        response.setAccountId("999999");
+        response.setOrderId(orderId);
+        response.setStatus("PENDING");
+        response.setTotalAmount(100.00);
+        response.setTotalTax(10.00);
+        response.setTransactionDate(new Date());
+
+        return new ResponseEntity<OrderResponse>(response, HttpStatus.OK);
+
+    }
+
+    @PostMapping
+    public ResponseEntity<OrderResponse> nuevaOrden(@RequestBody OrderRequest payLoad){
+
+        OrderResponse response = new OrderResponse();
+        response.setAccountId(payLoad.getAccountId());
+        response.setOrderId("9999");
+        response.setStatus("PENDING");
+        response.setTotalAmount(100.00);
+        response.setTotalTax(10.00);
+        response.setTransactionDate(new Date());
+
+        return new ResponseEntity<OrderResponse>(response, HttpStatus.CREATED);
     }
 }
