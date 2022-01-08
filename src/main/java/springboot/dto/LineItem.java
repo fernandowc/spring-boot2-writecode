@@ -7,5 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class LineItem {
     private String upc;
+    private int quantity;
     private double price;
 }

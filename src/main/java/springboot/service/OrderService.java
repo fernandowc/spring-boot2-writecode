@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import springboot.dto.OrderRequest;
 import springboot.dto.OrderResponse;
 import springboot.model.Order;
+import springboot.util.OrderValidator;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +14,8 @@ import java.util.List;
 public class OrderService {
 
     public Order createOrder(OrderRequest orderRequest) {
+
+        OrderValidator.validateOrder(orderRequest);
 
         Order response = new Order();
         response.setAccountId(orderRequest.getAccountId());
