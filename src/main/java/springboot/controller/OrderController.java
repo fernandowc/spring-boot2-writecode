@@ -1,43 +1,50 @@
 package springboot.controller;
 
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import springboot.dto.OrderRequest;
 import springboot.dto.OrderResponse;
+import springboot.model.Order;
+import springboot.service.OrderService;
+import springboot.util.mapper.EntityDtoConverter;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+@Api
 @RestController
 @RequestMapping("/order")
 public class OrderController {
 
+    @Autowired
+    OrderService orderService;
+
+    @Autowired
+    private EntityDtoConverter converter;
+
     @GetMapping
     public ResponseEntity<List<OrderResponse>> findAll() {
-        List<OrderResponse> orders = new ArrayList<>();
 
-        OrderResponse response = new OrderResponse();
-        response.setAccountId("999999");
-        response.setOrderId("111123");
-        response.setStatus("PENDING");
-        response.setTotalAmount(100.00);
-        response.setTotalTax(10.00);
-        response.setTransactionDate(new Date());
+        List<Order> orders = orderService.findAllOrders();
 
-        OrderResponse response2 = new OrderResponse();
-        response2.setAccountId("999991");
-        response2.setOrderId("111124");
-        response2.setStatus("PENDING");
-        response2.setTotalAmount(150.00);
-        response2.setTotalTax(19.00);
-        response2.setTransactionDate(new Date());
+        return new ResponseEntity<List<OrderResponse>>(converter.convertEntitytoDto(orders),
+                HttpStatus.OK);
+    }
 
-        orders.add(response);
-        orders.add(response2);
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderResponse> findById(@PathVariable String orderId) {
 
-        return new ResponseEntity<List<OrderResponse>>(orders, HttpStatus.OK);
+        Order order = orderService.findOrderById(orderId);
+
+        return new ResponseEntity<OrderResponse>(converter.convertEntitytoDto(order), HttpStatus.OK);
+    }
+
+    @PostMapping()
+    public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest) {
+
+        Order order = orderService.createOrder(orderRequest);
+        return new ResponseEntity<OrderResponse>(converter.convertEntitytoDto(order), HttpStatus.CREATED);
     }
 }
