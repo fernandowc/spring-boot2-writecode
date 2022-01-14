@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "05e74109-33c6-4b39-b6bb-cf51c5b04468",
+		"name": "WriteCode SpringBoot2 - Java11+",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "GET LIST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/order",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ORDER ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/order/0e6fae6b-dc4d-4070-b92d-7ffab0b7592e",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"order",
+								"0e6fae6b-dc4d-4070-b92d-7ffab0b7592e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ACCOUNT ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/order/account/99999994",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"order",
+								"account",
+								"99999994"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST ORDER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"accountId\": \"99999994\",\r\n  \"items\": [\r\n    {\r\n      \"price\": 55,\r\n      \"quantity\": 666,\r\n      \"upc\": \"13423532433\"\r\n    },\r\n    {\r\n      \"price\": 10,\r\n      \"quantity\": 6,\r\n      \"upc\": \"1344322433\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/order",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/api/v1",
+			"type": "string"
+		}
+	]
+}
