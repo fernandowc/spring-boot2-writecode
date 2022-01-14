@@ -27,24 +27,32 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<List<OrderResponse>> findAll() {
 
-        List<Order> orders = orderService.findAllOrders();
+        List<Order> orders = orderService.listarOrder();
 
-        return new ResponseEntity<List<OrderResponse>>(converter.convertEntitytoDto(orders),
+        return new ResponseEntity<>(converter.convertEntitytoDto(orders),
                 HttpStatus.OK);
     }
 
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderResponse> findById(@PathVariable String orderId) {
 
-        Order order = orderService.findOrderById(orderId);
+        Order order = orderService.buscarOrderPorId(orderId);
 
-        return new ResponseEntity<OrderResponse>(converter.convertEntitytoDto(order), HttpStatus.OK);
+        return new ResponseEntity<>(converter.convertEntitytoDto(order), HttpStatus.OK);
+    }
+
+    @GetMapping("/account/{accountId}")
+    public ResponseEntity<List<OrderResponse>> findOrderByAccountId(@PathVariable String accountId) {
+
+        List<Order> order = orderService.buscarOrdersPorAccountId(accountId);
+
+        return new ResponseEntity<>(converter.convertEntitytoDto(order), HttpStatus.OK);
     }
 
     @PostMapping()
     public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest) {
 
         Order order = orderService.createOrder(orderRequest);
-        return new ResponseEntity<OrderResponse>(converter.convertEntitytoDto(order), HttpStatus.CREATED);
+        return new ResponseEntity<>(converter.convertEntitytoDto(order), HttpStatus.CREATED);
     }
 }

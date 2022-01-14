@@ -31,4 +31,11 @@ public class ExceptionHandlerr extends ResponseEntityExceptionHandler {
                 LocalDateTime.now());
         return new ResponseEntity<Object>(response, response.getStatus());
     }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<Object> handlerOrderNotFoundException(Exception exception, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(exception.getMessage(),
+                request.getDescription(true), HttpStatus.NOT_FOUND, LocalDateTime.now());
+        return new ResponseEntity<>(response, response.getStatus());
+    }
 }
