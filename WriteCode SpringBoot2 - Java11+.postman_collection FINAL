@@ -31,13 +31,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/order/0e6fae6b-dc4d-4070-b92d-7ffab0b7592e",
+							"raw": "{{base_url}}/order/d4dfd0ef-d1fc-4aef-bf0d-a9f591f87d36",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"order",
-								"0e6fae6b-dc4d-4070-b92d-7ffab0b7592e"
+								"d4dfd0ef-d1fc-4aef-bf0d-a9f591f87d36"
 							]
 						}
 					},
